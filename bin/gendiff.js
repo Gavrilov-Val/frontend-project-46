@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander';
-
+import showFilesData from '../src/index.js';
 const program = new Command();
 
 program
@@ -12,10 +12,7 @@ program
   .arguments('<filepath1> <filepath2>')
   .action((filepath1, filepath2, options) => {
     // Здесь будет логика сравнения файлов
-    console.log(`Comparing ${filepath1} and ${filepath2}`);
-    if (options.format) {
-      console.log(`Using format: ${options.format}`);
-    }
+    console.log(showFilesData(filepath1, filepath2));
   });
 
 program.parse(process.argv);
