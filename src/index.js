@@ -17,28 +17,26 @@ const showDiff = (filepath1, filepath2) => {
   const diffLines = sortedKeys.map((key) => {
     const hasInData1 = _.has(parsedData1, key);
     const hasInData2 = _.has(parsedData2, key);
-    
+
     if (!hasInData1) {
       return `  + ${key}: ${parsedData2[key]}`;
     }
-    
+
     if (!hasInData2) {
       return `  - ${key}: ${parsedData1[key]}`;
     }
-    
+
     if (parsedData1[key] === parsedData2[key]) {
       return `    ${key}: ${parsedData1[key]}`;
     }
-    
+
     return [
       `  - ${key}: ${parsedData1[key]}`,
-      `  + ${key}: ${parsedData2[key]}`
+      `  + ${key}: ${parsedData2[key]}`,
     ].join('\n');
   });
 
-  return `{\n${diffLines.join('\n')}\n}`;  
+  return `{\n${diffLines.join('\n')}\n}`;
 };
-
-
 
 export default showDiff;

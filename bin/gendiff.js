@@ -2,6 +2,7 @@
 
 import { Command } from 'commander';
 import showDiff from '../src/index.js';
+
 const program = new Command();
 
 program
@@ -10,7 +11,7 @@ program
   .version('1.0.0', '-V, --version', 'output the version number')
   .option('-f, --format [type]', 'output format')
   .arguments('<filepath1> <filepath2>')
-  .action((filepath1, filepath2, options) => {
+  .action((filepath1, filepath2/* , options */) => {
     // Здесь будет логика сравнения файлов
     console.log(showDiff(filepath1, filepath2));
   });
