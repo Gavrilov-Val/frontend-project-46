@@ -10,6 +10,7 @@ const readFile = (filename) => fs.readFileSync(getFixturePath(filename), 'utf-8'
 
 const expectedStylish = readFile('expectedStylish.txt');
 const expectedPlain = readFile('expectedPlain.txt');
+const expectedJson = readFile('expectedJson.json');
 
 describe('genDiff for nested structures', () => {
   const file1Json = getFixturePath('file1.json');
@@ -50,6 +51,24 @@ describe('genDiff for nested structures', () => {
 
     test('yml vs json', () => {
       expect(showDiff(file1Yml, file2Json, 'plain')).toBe(expectedPlain);
+    });
+  });
+
+  describe('json format', () => {
+    test('json vs json', () => {
+      expect(showDiff(file1Json, file2Json, 'json')).toBe(expectedJson);
+    });
+
+    test('yml vs yml', () => {
+      expect(showDiff(file1Yml, file2Yml, 'json')).toBe(expectedJson);
+    });
+
+    test('json vs yml', () => {
+      expect(showDiff(file1Json, file2Yml, 'json')).toBe(expectedJson);
+    });
+
+    test('yml vs json', () => {
+      expect(showDiff(file1Yml, file2Json, 'json')).toBe(expectedJson);
     });
   });
 
