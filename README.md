@@ -11,4 +11,4 @@
 
 
 ### Usage example:
-[![asciicast](https://asciinema.org/a/EoURqcfpAeMmfOSGJGIb9fXS4.svg)](https://asciinema.org/a/EoURqcfpAeMmfOSGJGIb9fXS4)
+[![asciicast](https://asciinema.org/a/WSUTrIWZEkCWeSa1RkuKMHP91.svg)](https://asciinema.org/a/WSUTrIWZEkCWeSa1RkuKMHP91)
