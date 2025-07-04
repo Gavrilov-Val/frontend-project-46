@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-import { Command } from 'commander';
-import showDiff from '../src/index.js';
+import { Command } from 'commander'
+import showDiff from '../src/index.js'
 
-const program = new Command();
+const program = new Command()
 
 program
   .name('gendiff')
@@ -12,7 +12,7 @@ program
   .option('-f, --format <type>', 'output format (stylish, plain, json)', 'stylish')
   .arguments('<filepath1> <filepath2>')
   .action((filepath1, filepath2, options) => {
-    console.log(showDiff(filepath1, filepath2, options.format));
-  });
+    console.log(showDiff(filepath1, filepath2, options.format))
+  })
 
-program.parse(process.argv);
+program.parse(process.argv)
