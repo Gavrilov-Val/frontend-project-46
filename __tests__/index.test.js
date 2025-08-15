@@ -12,67 +12,32 @@ const expectedStylish = readFile('expectedStylish.txt')
 const expectedPlain = readFile('expectedPlain.txt')
 const expectedJson = readFile('expectedJson.json')
 
+const filePairs = [
+  ['json', 'json'],
+  ['yml', 'yml'],
+  ['json', 'yml'],
+  ['yml', 'json'],
+]
+
 describe('genDiff for nested structures', () => {
-  const file1Json = getFixturePath('file1.json')
-  const file2Json = getFixturePath('file2.json')
-  const file1Yml = getFixturePath('file1.yml')
-  const file2Yml = getFixturePath('file2.yml')
-
-  describe('stylish format', () => {
-    test('json vs json', () => {
-      expect(showDiff(file1Json, file2Json, 'stylish')).toBe(expectedStylish)
-    })
-
-    test('yml vs yml', () => {
-      expect(showDiff(file1Yml, file2Yml, 'stylish')).toBe(expectedStylish)
-    })
-
-    test('json vs yml', () => {
-      expect(showDiff(file1Json, file2Yml, 'stylish')).toBe(expectedStylish)
-    })
-
-    test('yml vs json', () => {
-      expect(showDiff(file1Yml, file2Json, 'stylish')).toBe(expectedStylish)
-    })
+  const getFilePaths = (type1, type2) => ({
+    file1: getFixturePath(`file1.${type1}`),
+    file2: getFixturePath(`file2.${type2}`),
   })
 
-  describe('plain format', () => {
-    test('json vs json', () => {
-      expect(showDiff(file1Json, file2Json, 'plain')).toBe(expectedPlain)
-    })
-
-    test('yml vs yml', () => {
-      expect(showDiff(file1Yml, file2Yml, 'plain')).toBe(expectedPlain)
-    })
-
-    test('json vs yml', () => {
-      expect(showDiff(file1Json, file2Yml, 'plain')).toBe(expectedPlain)
-    })
-
-    test('yml vs json', () => {
-      expect(showDiff(file1Yml, file2Json, 'plain')).toBe(expectedPlain)
-    })
-  })
-
-  describe('json format', () => {
-    test('json vs json', () => {
-      expect(showDiff(file1Json, file2Json, 'json')).toBe(expectedJson)
-    })
-
-    test('yml vs yml', () => {
-      expect(showDiff(file1Yml, file2Yml, 'json')).toBe(expectedJson)
-    })
-
-    test('json vs yml', () => {
-      expect(showDiff(file1Json, file2Yml, 'json')).toBe(expectedJson)
-    })
-
-    test('yml vs json', () => {
-      expect(showDiff(file1Yml, file2Json, 'json')).toBe(expectedJson)
+  describe.each([
+    ['stylish', expectedStylish],
+    ['plain', expectedPlain],
+    ['json', expectedJson],
+  ])('%s format', (formatName, expected) => {
+    test.each(filePairs)('%s vs %s', (type1, type2) => {
+      const { file1, file2 } = getFilePaths(type1, type2)
+      expect(showDiff(file1, file2, formatName)).toBe(expected)
     })
   })
 
   test('default format (stylish)', () => {
-    expect(showDiff(file1Json, file2Json)).toBe(expectedStylish)
+    const { file1, file2 } = getFilePaths('json', 'json')
+    expect(showDiff(file1, file2)).toBe(expectedStylish)
   })
 })
